@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Mobile Security</title>
+
+    <meta name="description" content="Web application security">
+    <meta name="author" content="Jøran Lillesand, Ståle Pettersen">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+    <link rel="stylesheet/less" href="css/custom.less"/>
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if (window.location.search.match(/print-pdf/gi)) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'css/print/pdf.css';
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>Android - enda en klient man ikke kan stole på</section>
+        <section>
+            <h2>Outline</h2>
+            <ul>
+                <li>Isolasjon i filsystemet</li>
+                <li>XSS/SQL-injection</li>
+            </ul>
+        </section>
+
+        <section id="filesystem">
+            <section>
+                <h2>Isolasjon i filsystemet</h2>
+                <ul>
+                    <li>Baserer seg på sikkerheten i et UNIX filsystem</li>
+                    <li>Når en app blir innstallert, så får den en egen bruker i UNIX</li>
+                    <li>Filer som tilhører appen får denne brukeren som eier</li>
+                    <li>Dette gjør at alt ligger til rette for at en app ikke skal kunne lese filene til en annen app
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Isolasjon i filsystemet</h2>
+                <ul>
+                    <li>MODE_PRIVATE, MODE_WORLD_READABLE, MODE_WORLD_WRITEABLE, MODE_MULTI_PROCESS</li>
+                    <li>MODE_PRIVATE er heldigvis default</li>
+                    <li>
+                        http://developer.android.com/reference/android/content/Context.html#getSharedPreferences%28java.lang.String,%20int%29
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Isolasjon i filsystemet</h2>
+                <ul>
+                    <li>Eksternt minnekort har ingen isolasjon mellom apper</li>
+                    <li>Enten har en app tilgang til alt eller ingenting på eksternt minnekort</li>
+                </ul>
+            </section>
+        </section>
+        <section id="injection">
+            <section>
+                <h2>XSS/SQL-injection</h2>
+                <ul>
+                    <li>En app er ofte bare en klient</li>
+                    <li>Som en vanlig nettside, så må man tenke på klientsårbarheter</li>
+                </ul>
+            </section>
+        </section>
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+<script src="js/lesscss.min.js"></script>
+
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: false,
+        progress: false,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            {
+                src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {src: 'lib/js/lodash.min.js'},
+            {
+                src: 'lib/js/underscore.string.min.js', callback: function () {
+                _.mixin(_.str.exports());
+            }
+            },
+            {
+                src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/highlight/highlight.js', callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {src: 'js/utils.js'},
+            {src: 'js/sqli-example.js'},
+            {src: 'js/xss-example.js'},
+            {src: 'js/csrf-example.js'},
+
+            {
+                src: 'plugin/zoom-js/zoom.js', async: true, condition: function () {
+                return !!document.body.classList;
+            }
+            },
+            {
+                src: 'plugin/notes/notes.js', async: true, condition: function () {
+                return !!document.body.classList;
+            }
+            }
+        ]
+    });
+
+</script>
+
+</body>
+</html>

