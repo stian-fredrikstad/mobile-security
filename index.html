@@ -66,11 +66,20 @@
                 <li>SQL-injection</li>
             </ul>
         </section>
-        <section id="art">
+        <section id="basic">
             <section>
-                <h2>Android Runtime</h2>
+                <h2>Android Runtime (ART)</h2>
                 <ul>
                     <li>Erstattet Dalvik helt i 5.0 "Lollipop"</li>
+                    <li>Kompilerer Dalvik executable(dex) under installasjon på devicen</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Android SELinux</h2>
+                <ul>
+                    <li>Security-Enhanced Linux</li>
+                    <li>Baserer seg på prinsipper om Mandatory Access Control</li>
+                    <li>Hindrer apps å bruke enkelt funksjoner, selv om de får tilgang til root</li>
                 </ul>
             </section>
         </section>
@@ -88,7 +97,7 @@
             <section>
                 <h2>Isolasjon i filsystemet</h2>
                 <ul>
-                    <li>MODE_PRIVATE, MODE_WORLD_READABLE, MODE_WORLD_WRITEABLE, MODE_MULTI_PROCESS</li>
+                    <li>MODE_PRIVATE, MODE_WORLD_READABLE, <br />MODE_WORLD_WRITEABLE, MODE_MULTI_PROCESS</li>
                     <li>MODE_PRIVATE er heldigvis default</li>
                     <li>
                         http://developer.android.com/reference/android/content/Context.html#getSharedPreferences%28java.lang.String,%20int%29
