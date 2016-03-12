@@ -83,7 +83,6 @@
                     <li>res</li>
                     <li>resources.arsc</li>
                     <li>classes.dex</li>
-
                 </ul>
             </section>
         </section>
@@ -121,16 +120,18 @@
             <section>
                 <h2>Android App - bare en klient</h2>
                 <ul>
-                    <li>Ikke gjem hemmeligheter i appen din som du ikke vil at brukeren skal finne</li>
-                    <li>Apper for Android skrives vanligvis i Java, og kompileres ned til class-filer</li>
-                    <li>Man kan selvfølgelig obfuskere koden, men det gjør det bare litt vanskeligere, ikke umulig</li>
+                    <li>Vi kan dra veldig mange paralleller mellom applikasjoner på Android og nettsider med JS</li>
+                    <li>All kode er tilgjengelig for brukeren, ikke bare for å lese, men også for debugging</li>
+                    <li>Skal ikke være mulig å få til i en produksjonversjon, men kan løses ved å endre AndroidManifest med dette:
+                        &lt;application .... android:debuggable="true“ ...&gt;</li>
                 </ul>
             </section>
             <section>
                 <h2>Android App - bare en klient</h2>
                 <ul>
-                    <li>Vi kan dra veldig mange paralleller mellom applikasjoner på Android og nettsider med JS</li>
-                    <li>All kode er tilgjengelig for brukeren, ikke bare for å lese, men også for debugging</li>
+                    <li>Ikke gjem hemmeligheter i appen din som du ikke vil at brukeren skal finne</li>
+                    <li>Apper for Android skrives vanligvis i Java, og kompileres ned til class-filer</li>
+                    <li>Man kan selvfølgelig obfuskere koden, men det gjør det bare litt vanskeligere, ikke umulig</li>
                 </ul>
             </section>
         </section>
