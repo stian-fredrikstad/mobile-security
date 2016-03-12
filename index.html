@@ -58,14 +58,6 @@
                 </ul>
             </section>
         </section>
-        <section>
-            <h2>Outline</h2>
-            <ul>
-                <li>Android Runtime</li>
-                <li>Isolasjon i filsystemet</li>
-                <li>SQL-injection</li>
-            </ul>
-        </section>
         <section id="basic">
             <section>
                 <h2>Android Runtime (ART)</h2>
@@ -79,7 +71,19 @@
                 <ul>
                     <li>Security-Enhanced Linux</li>
                     <li>Baserer seg på prinsipper om Mandatory Access Control</li>
-                    <li>Hindrer apps å bruke enkelt funksjoner, selv om de får tilgang til root</li>
+                    <li>Hindrer apps å bruke enkelte funksjoner, selv om de får tilgang til root</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Strukturen i en apk</h2>
+                <ul>
+                    <li>AndroidManigest.xml</li>
+                    <li>META-INF</li>
+                    <li>assets</li>
+                    <li>res</li>
+                    <li>resources.arsc</li>
+                    <li>classes.dex</li>
+
                 </ul>
             </section>
         </section>
@@ -87,8 +91,8 @@
             <section>
                 <h2>Isolasjon i filsystemet</h2>
                 <ul>
-                    <li>Baserer seg på sikkerheten i et UNIX filsystem</li>
-                    <li>Når en app blir innstallert, så får den en egen bruker i UNIX</li>
+                    <li>Android har et UNIX-style filsystem</li>
+                    <li>Når en app blir installert, så får den en egen bruker i UNIX</li>
                     <li>Filer som tilhører appen får denne brukeren som eier</li>
                     <li>Dette gjør at alt ligger til rette for at en app ikke skal kunne lese filene til en annen app
                     </li>
@@ -100,7 +104,8 @@
                     <li>MODE_PRIVATE, MODE_WORLD_READABLE, <br />MODE_WORLD_WRITEABLE, MODE_MULTI_PROCESS</li>
                     <li>MODE_PRIVATE er heldigvis default</li>
                     <li>
-                        http://developer.android.com/reference/android/content/Context.html#getSharedPreferences%28java.lang.String,%20int%29
+                        http://developer.android.com/reference/android/content/Context.html
+                        #getSharedPreferences%28java.lang.String,%20int%29
                     </li>
                 </ul>
             </section>
@@ -109,6 +114,23 @@
                 <ul>
                     <li>Eksternt minnekort har ingen isolasjon mellom apper</li>
                     <li>Enten har en app tilgang til alt eller ingenting på eksternt minnekort</li>
+                </ul>
+            </section>
+        </section>
+        <section id="client">
+            <section>
+                <h2>Android App - bare en klient</h2>
+                <ul>
+                    <li>Ikke gjem hemmeligheter i appen din som du ikke vil at brukeren skal finne</li>
+                    <li>Apper for Android skrives vanligvis i Java, og kompileres ned til class-filer</li>
+                    <li>Man kan selvfølgelig obfuskere koden, men det gjør det bare litt vanskeligere, ikke umulig</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Android App - bare en klient</h2>
+                <ul>
+                    <li>Vi kan dra veldig mange paralleller mellom applikasjoner på Android og nettsider med JS</li>
+                    <li>All kode er tilgjengelig for brukeren, ikke bare for å lese, men også for debugging</li>
                 </ul>
             </section>
         </section>
