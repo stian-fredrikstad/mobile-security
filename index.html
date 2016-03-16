@@ -63,7 +63,7 @@
                 <h2>Android Runtime (ART)</h2>
                 <ul>
                     <li>Erstattet Dalvik helt i 5.0 "Lollipop"</li>
-                    <li>Kompilerer Dalvik executable(dex) under installasjon på devicen</li>
+                    <li>Kompilerer Dalvik executable (dex) under installasjon på devicen (Ahead-Of-TIme compilation)</li>
                 </ul>
             </section>
             <section>
@@ -85,6 +85,18 @@
                     <li>classes.dex</li>
                 </ul>
             </section>
+            <section>
+                <h2>AndroidManiefest.xml</h2>
+                <ul>
+                    <li>Inneholder alle tilganger som appen ber om</li>
+                    <li>og alle activities, receivers, services, providers osv.</li>
+                    <li>Kan være skummelt å sette disse &lt;... android:exported="true" ... /&gt;</li>
+                    <li>Hvis exported skal settes true, sørg for å legge på intent-filters slik at andre apper ikke kan bruke den</li>
+                </ul>
+                <aside class="notes">
+                    http://developer.android.com/training/articles/security-tips.html
+                </aside>
+            </section>
         </section>
         <section id="filesystem">
             <section>
@@ -93,13 +105,16 @@
                     <li>Android har et UNIX-style filsystem</li>
                     <li>Når en app blir installert, så får den en egen bruker i UNIX</li>
                     <li>Filer som tilhører appen får denne brukeren som eier</li>
-                    <li>Dette gjør at alt ligger til rette for at en app ikke skal kunne lese filene til en annen app
-                    </li>
+                    <li>Dette gjør at alt ligger til rette for at en app ikke skal kunne lese filene til en annen app</li>
                 </ul>
+                <aside class="notes">
+                    http://developer.android.com/guide/topics/data/data-storage.html#filesInternal
+                </aside>
             </section>
             <section>
                 <h2>Isolasjon i filsystemet</h2>
                 <ul>
+                    <li>Er mulig å sette rettigheter feil slik at du åpner opp for sikkerhetshull i appen</li>
                     <li>MODE_PRIVATE, MODE_WORLD_READABLE, <br />MODE_WORLD_WRITEABLE, MODE_MULTI_PROCESS</li>
                     <li>MODE_PRIVATE er heldigvis default</li>
                     <li>
@@ -113,7 +128,21 @@
                 <ul>
                     <li>Eksternt minnekort har ingen isolasjon mellom apper</li>
                     <li>Enten har en app tilgang til alt eller ingenting på eksternt minnekort</li>
+                    <li>Bør derfor ikke legge noe privat her, i så fall bør det krypteres slik at andre apper ikke kan lese det</li>
                 </ul>
+                <aside class="notes">
+                    http://developer.android.com/guide/topics/data/data-storage.html#filesExternal
+                </aside>
+            </section>
+            <section>
+                <h2>Content Providers - svaret på problemet?</h2>
+                <ul>
+                    <li>En ryddig måte å lagre data fra appen på</li>
+                    <li>Kan deles ved å gi rettigheter i manifestet</li>
+                </ul>
+                <aside class="notes">
+                    http://developer.android.com/guide/topics/manifest/provider-element.html
+                </aside>
             </section>
         </section>
         <section id="client">
@@ -122,7 +151,7 @@
                 <ul>
                     <li>Vi kan dra veldig mange paralleller mellom applikasjoner på Android og nettsider med JS</li>
                     <li>All kode er tilgjengelig for brukeren, ikke bare for å lese, men også for debugging</li>
-                    <li>Skal ikke være mulig å få til i en produksjonversjon, men kan løses ved å endre AndroidManifest med dette:
+                    <li>Debugging er vanligvis slått av i en produksjonversjon, men kan løses ved å endre AndroidManifest med dette:
                         &lt;application .... android:debuggable="true“ ...&gt;</li>
                 </ul>
             </section>
@@ -130,17 +159,21 @@
                 <h2>Android App - bare en klient</h2>
                 <ul>
                     <li>Ikke gjem hemmeligheter i appen din som du ikke vil at brukeren skal finne</li>
-                    <li>Apper for Android skrives vanligvis i Java, og kompileres ned til class-filer</li>
-                    <li>Man kan selvfølgelig obfuskere koden, men det gjør det bare litt vanskeligere, ikke umulig</li>
+                    <li>Apper for Android skrives vanligvis i Java, og kompileres ned til filen classes.dex</li>
+                    <li>Denne filen er det fullt mulig å dekompilere til Java eller lignende</li>
+                    <li>Man kan selvfølgelig obfuskere koden, men det gjør det bare litt vanskeligere å lese, ikke umulig</li>
                 </ul>
             </section>
         </section>
         <section id="injection">
             <section>
-                <h2>XSS/SQL-injection</h2>
+                <h2>SQL-injection</h2>
                 <ul>
-                    <li>En app er ofte bare en klient</li>
-                    <li>Som en vanlig nettside, så må man tenke på klientsårbarheter</li>
+                    <li>Vanlig at en app har en sqlite database</li>
+                    <li>Like viktig å tenke på sql-injection som på backend</li>
+                    <li>F.eks. en nettbank-app som er beskyttet at passord gjør fort passordet meningsløs hvis man kan kjøre sql-injection på klientsiden og omgå det</li>
+                    <li>Angrep kan komme i mange kontekster, gjennom UI, intents fra andre apps m.m.</li>
+                    <li>Tenk på samme måte som ved backend, parametriserte spørringer</li>
                 </ul>
             </section>
         </section>
